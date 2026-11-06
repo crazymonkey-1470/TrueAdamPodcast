@@ -1,0 +1,11 @@
+// Cloudflare Workers static-assets deploy (Workers & Pages > Create > Import a repository).
+// Root directory: web   Build command: npm run build   Deploy command: npx wrangler deploy
+// Cloudflare *Pages* ignores this file (no pages_build_output_dir); there use output dir "dist".
+{
+  "name": "true-adam-prep",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
