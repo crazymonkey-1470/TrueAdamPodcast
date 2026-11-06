@@ -82,8 +82,8 @@ function Layout() {
   return (
     <div className="shell">
       <header className="topbar">
-        <a className="brand" href="#/">
-          True Adam <span>prep</span>
+        <a className="wordmark" href="#/">
+          True<em>Adam</em>
         </a>
         <nav className="mainnav">
           <a href="#/" className={!head ? 'active' : ''}>This week</a>

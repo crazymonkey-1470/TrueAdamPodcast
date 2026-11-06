@@ -3,6 +3,7 @@ import { formatDay, freshness, href, today, useApp, useLoad } from '../lib';
 import type { ItemCard } from '../types';
 import ItemList from '../components/ItemList';
 import SearchBox from '../components/SearchBox';
+import LazyGlobe from '../globe/LazyGlobe';
 
 export default function Home() {
   const { episodes } = useApp();
@@ -24,18 +25,28 @@ export default function Home() {
 
   return (
     <>
-      <SearchBox />
-      {next && (
-        <a className="banner" href={href('e', next.id)}>
-          <span>Next recording</span>
-          <b>{next.title}</b>
-          {next.recording_date && (
-            <span>
-              {formatDay(next.recording_date)} ({freshness(next.recording_date)})
-            </span>
+      <section className="hero">
+        <LazyGlobe />
+        <div className="hero-text">
+          <div className="eyebrow">
+            <span className="dot" />
+            {next ? `Next recording${next.recording_date ? ` · ${formatDay(next.recording_date)} (${freshness(next.recording_date)})` : ''}` : 'Between episodes'}
+          </div>
+          <h1>
+            {next ? next.title : <>This week’s <em>pile</em></>}
+          </h1>
+          <p>
+            {weekItems ? `${weekItems.length} nominated` : '…'} · {inbox.data ? `${inbox.data.length}${inbox.data.length === 30 ? '+' : ''} in the inbox` : '…'}
+          </p>
+          {next && (
+            <a className="button cta" href={href('e', next.id)}>
+              Open episode plan →
+            </a>
           )}
-        </a>
-      )}
+        </div>
+      </section>
+
+      <SearchBox />
 
       <section>
         <h2>

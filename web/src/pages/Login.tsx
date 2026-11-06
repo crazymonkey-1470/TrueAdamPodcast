@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { supabase } from '../supabase';
+import LazyGlobe from '../globe/LazyGlobe';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -17,26 +18,41 @@ export default function Login() {
   }
 
   return (
-    <div className="centered login">
-      <h1>
-        True Adam <span>prep</span>
-      </h1>
-      <p className="muted">Private newsroom for Freddy, Stew &amp; Mike.</p>
-      <form onSubmit={submit} className="stack">
-        <label>
-          Email
-          <input type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <label>
-          Password
-          <input type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <button className="primary" disabled={busy}>
-          {busy ? 'Signing in…' : 'Sign in'}
-        </button>
-        {err && <p className="error">{err}</p>}
-      </form>
-      <p className="muted small">No account or forgot your password? Ask the producer.</p>
+    <div className="login-page">
+      <LazyGlobe />
+      <div className="login-panel">
+        <div className="eyebrow">
+          <span className="dot" /> Private prep room
+        </div>
+        <h1 className="wordmark-hero">
+          True<em>Adam</em>
+        </h1>
+        <p className="tagline">
+          Reclaiming manhood as God calls men to be. The week’s reading, talking points and episode plans for
+          Freddy, Stew &amp; Mike.
+        </p>
+        <form onSubmit={submit} className="stack">
+          <label>
+            Email
+            <input type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          <button className="primary" disabled={busy}>
+            {busy ? 'Signing in…' : 'Sign in →'}
+          </button>
+          {err && <p className="error">{err}</p>}
+        </form>
+        <p className="muted small">No account or forgot your password? Ask the producer.</p>
+      </div>
     </div>
   );
 }

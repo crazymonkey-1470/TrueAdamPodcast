@@ -11,11 +11,11 @@ function assertPublicKey(key: string | undefined) {
     /* not a JWT (e.g. sb_publishable_...) */
   }
   if (key.startsWith('sb_secret_') || role === 'service_role') {
-    throw new Error('VITE_SUPABASE_KEY is a secret/service_role key. Use the publishable (or anon) key.');
+    throw new Error('VITE_TRUEADAM_SUPABASE_KEY is a secret/service_role key. Use the publishable (or anon) key.');
   }
 }
 
 export default defineConfig(({ mode }) => {
-  assertPublicKey(loadEnv(mode, process.cwd(), 'VITE_').VITE_SUPABASE_KEY);
-  return { base: './', plugins: [react()] };
+  assertPublicKey(loadEnv(mode, process.cwd(), 'VITE_').VITE_TRUEADAM_SUPABASE_KEY);
+  return { base: './', plugins: [react()], build: { chunkSizeWarningLimit: 700 } };
 });

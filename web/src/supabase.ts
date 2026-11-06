@@ -1,7 +1,7 @@
 import { createClient, type PostgrestError } from '@supabase/supabase-js';
 
-const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-const key = import.meta.env.VITE_SUPABASE_KEY as string | undefined;
+const url = import.meta.env.VITE_TRUEADAM_SUPABASE_URL as string | undefined;
+const key = import.meta.env.VITE_TRUEADAM_SUPABASE_KEY as string | undefined;
 
 function isServerKey(k: string): boolean {
   if (k.startsWith('sb_secret_')) return true;
@@ -15,9 +15,9 @@ function isServerKey(k: string): boolean {
 
 export const configError: string | null =
   !url || !key
-    ? 'This build has no Supabase settings. Set VITE_SUPABASE_URL and VITE_SUPABASE_KEY (see README).'
+    ? 'This build has no Supabase settings. Set VITE_TRUEADAM_SUPABASE_URL and VITE_TRUEADAM_SUPABASE_KEY (see README).'
     : isServerKey(key)
-      ? 'Refusing to start: VITE_SUPABASE_KEY is a secret/service_role key. Use the publishable (anon) key.'
+      ? 'Refusing to start: VITE_TRUEADAM_SUPABASE_KEY is a secret/service_role key. Use the publishable (anon) key.'
       : null;
 
 export const supabase = createClient(url ?? 'http://invalid.localhost', key ?? 'missing', {
