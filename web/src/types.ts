@@ -1,4 +1,4 @@
-// Mirrors supabase/migrations/20261106000000_init.sql
+// Mirrors supabase/migrations/20261106215937_init.sql
 export type Role = 'host' | 'producer';
 export type ItemType = 'article' | 'video' | 'note' | 'fun_fact' | 'guest_idea';
 export type ItemStatus = 'inbox' | 'this_week' | 'used' | 'archived';

@@ -28,17 +28,8 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: web/package-lock.json
-      - name: Check repository variables
-        run: |
-          if [ -z "${{ vars.SUPABASE_URL }}" ] || [ -z "${{ vars.SUPABASE_PUBLISHABLE_KEY }}" ]; then
-            echo "::error::Set repository variables SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY (Settings > Secrets and variables > Actions > Variables)."
-            exit 1
-          fi
       - run: npm ci
-      - run: npm run build
-        env:
-          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
-          VITE_SUPABASE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+      - run: npm run build # reads web/.env.production
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist

@@ -15,7 +15,7 @@ web/                   the site: Vite + React + supabase-js, static, mobile-firs
 
 ## How it fits together
 
-- **Database**: a dedicated Supabase project (`true-adam-podcast`), separate from GovContractHunter.
+- **Database**: the dedicated Supabase project **`TrueAdamPodcast`** (ref `olzqrpbwayzqyvjeotvz`, us-west-2), separate from GovContractHunter.
   RLS is on for every table. The anon role gets nothing. Signed-in users get access only
   if their email is in `allowed_emails`. Hosts can't rewrite text they didn't add.
 - **Producer**: writes with SQL through the Supabase connector or the SQL editor. That
@@ -24,31 +24,36 @@ web/                   the site: Vite + React + supabase-js, static, mobile-firs
   (anon) key only. The build refuses to bundle a `sb_secret_…` or `service_role` key.
   Login is email + password.
 
-## Setup (one time, about 10 minutes)
+## Setup status
 
-1. **Create the Supabase project.** In the dashboard, click New project and name it
-   `true-adam-podcast`. Use the same organisation as your existing work so the Supabase
-   connector can see it, but make it a new project. Free plan note: free projects pause
-   after about a week with no traffic, and an account can only have a limited number of
-   free projects.
-2. **Apply the schema.** Run `supabase/migrations/20261106000000_init.sql` in the SQL
-   editor, or with the connector's `apply_migration`, or with `supabase link && supabase db push`.
-3. **Auth settings** (Authentication → Sign In / Providers):
-   - Turn **off** "Allow new users to sign up". The allow-list blocks strangers anyway, but this keeps junk accounts out.
-   - Leave the Email provider on. No SMTP setup is needed, because users are created with passwords.
-4. **Add the crew.** Insert each email into `allowed_emails`, then create the users under
-   Authentication → Users → Add user, with **Auto Confirm User** ticked.
+Already done on the live project (2026-11-06):
+
+- [x] Schema applied: `supabase/migrations/20261106215937_init.sql`. The filename matches
+      the remote migration history, so `supabase link --project-ref olzqrpbwayzqyvjeotvz && supabase db push`
+      only applies future migrations.
+- [x] Verified live with a rolled-back smoke test: allow-list → profile, duplicate URL
+      error, anon locked out, non-member sees nothing, host can change status but not
+      producer text, comment attribution.
+- [x] Auth: public sign-ups **disabled**, minimum password length 8, site URL
+      `https://crazymonkey-1470.github.io/TrueAdamPodcast/`. There is no custom SMTP, so the built-in
+      mailer allows only about 2 emails/hour. That's why login is email + password, not magic links.
+- [x] `web/.env.production` holds the project URL and **publishable** key, so the build needs no secrets.
+
+Still to do (needs a person):
+
+1. **Add the crew.** Insert each email into `allowed_emails`, then create each user under
+   Authentication → Users → Add user → Create new user, with **Auto Confirm User** ticked.
    [docs/PRODUCER.md](docs/PRODUCER.md#crew-access) has the exact SQL.
-5. **Deploy the site** (GitHub Pages, free for this public repo):
-   - Settings → Pages → Source: **GitHub Actions**.
-   - Settings → Secrets and variables → Actions → **Variables**: add `SUPABASE_URL`
-     (`https://<ref>.supabase.co`) and `SUPABASE_PUBLISHABLE_KEY` (Project Settings → API
-     Keys → publishable key, or the legacy anon key).
-   - Merge to `main`. The `Deploy site` workflow publishes to
-     `https://crazymonkey-1470.github.io/TrueAdamPodcast/`.
+2. **Turn on the site** (GitHub Pages, free for this public repo):
+   - Settings → Pages → Build and deployment → Source: **GitHub Actions**.
+   - Actions → **Deploy site** → Run workflow. After that, every push to `main` that touches `web/` redeploys.
+   - The site is served at `https://crazymonkey-1470.github.io/TrueAdamPodcast/`.
 
-   Any other static host works too (Netlify, Vercel, Cloudflare Pages). Build `web/` with
-   `npm run build`, publish `web/dist`, and set the same two `VITE_*` variables.
+   Any other static host works too (Netlify, Vercel, Cloudflare Pages): build `web/` with
+   `npm run build` and publish `web/dist`.
+
+If the project is on Supabase's Free plan, it pauses after about a week with no traffic.
+Weekly use keeps it awake; if it does pause, restore it from the dashboard.
 
 Code is public, data is not. The publishable key and project URL are meant to be public.
 Every table is protected by RLS, and the allow-list decides who sees anything.

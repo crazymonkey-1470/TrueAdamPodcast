@@ -4,8 +4,8 @@ You write through SQL: the Supabase connector's `execute_sql`, or the SQL editor
 dashboard. Both run as the `postgres` role, which **bypasses RLS**, so you need no
 website login. Rows you insert this way are labelled **Producer** on the site.
 
-- Project: a dedicated Supabase project named **`true-adam-podcast`**. It is not part of GovContractHunter.
-- Schema source of truth: `supabase/migrations/20261106000000_init.sql`.
+- Project: **`TrueAdamPodcast`**, ref `olzqrpbwayzqyvjeotvz` (`https://olzqrpbwayzqyvjeotvz.supabase.co`). It's dedicated, not GovContractHunter.
+- Schema source of truth: `supabase/migrations/20261106215937_init.sql`.
 - The service_role / secret key never goes in the website. The site only uses the publishable (anon) key.
 
 ## Fastest path: `add_item(...)`
