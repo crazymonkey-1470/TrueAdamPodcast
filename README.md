@@ -82,9 +82,10 @@ scripts/test-db.sh   # needs Postgres 15+ server binaries; runs as-is on GitHub'
 
 This spins up a throwaway Postgres with a small Supabase stand-in (`auth.users`,
 `auth.uid()`, the `anon`/`authenticated` roles, and Supabase's default grants). It applies
-the migration and checks 134 behaviours: the allow-list, duplicate URLs, topic validation,
+the migration and checks 173 behaviours: the allow-list, duplicate URLs, topic validation,
 anon lockout, host vs. producer edit rights, attribution, highlights, the Grok research
-queue, Grok's memory (dedupe, ranked recall, revisions, privacy), and the views.
+queue, Grok's memory (dedupe, ranked recall, revisions, privacy), the source inbox (RSS/Atom
+parsing, duplicate stories, feedback, read-once store, digest), and the views.
 
 ## Site map
 
@@ -95,7 +96,8 @@ queue, Grok's memory (dedupe, ranked recall, revisions, privacy), and the views.
 | `#/i/<id>` | One item with comments (shareable link) |
 | `#/add` | Add an item (article, video, note, fun fact, guest idea) |
 | `#/episodes`, `#/e/<id>` | Episode ideas: attach items, checklist (date, guest, fun fact, 3+ discussion items), mark all used |
-| `#/picks` | ★ Crew picks (most-starred first) and topic pitches |
+| `#/feed` | Source inbox (fresh headlines from trusted feeds, grouped by story; Discuss / More like this / Not interested), plus Starred and Pitches |
+| `#/sources` | The RSS/Atom sources, their health, and (producer) add, pause, remove, fetch now |
 | `#/research` | Grok research queue: ask, copy prompt for Grok, paste answers |
 | `#/search/<q>` | Search titles, summaries, sources |
 | `#/account` | Display name, password, sign out |
