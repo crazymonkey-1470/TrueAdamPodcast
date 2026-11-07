@@ -17,6 +17,7 @@ supabase/migrations/   schema, RLS, seed topics: the contract the producer write
 supabase/tests/        schema + RLS tests (run on plain Postgres via scripts/test-db.sh)
 docs/PRODUCER.md       how to insert items, plus the exact table/column list
 web/                   the site: Vite + React + supabase-js, static, mobile-first
+worker/                Railway feed worker: news RSS/Atom, YouTube, podcasts → Supabase (docs/RAILWAY.md)
 .github/workflows/     CI (DB tests + build) and GitHub Pages deploy
 ```
 
@@ -82,7 +83,7 @@ scripts/test-db.sh   # needs Postgres 15+ server binaries; runs as-is on GitHub'
 
 This spins up a throwaway Postgres with a small Supabase stand-in (`auth.users`,
 `auth.uid()`, the `anon`/`authenticated` roles, and Supabase's default grants). It applies
-the migration and checks 173 behaviours: the allow-list, duplicate URLs, topic validation,
+the migration and checks 203 behaviours: the allow-list, duplicate URLs, topic validation,
 anon lockout, host vs. producer edit rights, attribution, highlights, the Grok research
 queue, Grok's memory (dedupe, ranked recall, revisions, privacy), the source inbox (RSS/Atom
 parsing, duplicate stories, feedback, read-once store, digest), and the views.

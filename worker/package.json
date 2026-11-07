@@ -1,0 +1,17 @@
+{
+  "name": "true-adam-feed-worker",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Pulls headlines from RSS/Atom feeds, YouTube channels and podcasts into the True Adam Supabase project.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/run.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.12.0"
+  }
+}
