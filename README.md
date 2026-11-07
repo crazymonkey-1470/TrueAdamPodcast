@@ -5,6 +5,13 @@ topic tabs, saved articles with summaries and talking points, a "this week" pile
 planning, and comments. The producer fills it from the database side. The hosts browse,
 add their own finds, comment, and mark items used.
 
+**Look:** a Renaissance reading room. Plaster ground, fresco pigments (lapis, vermilion,
+terre verte, old gold), gilt frames, Roman capitals (Cinzel) for labels and buttons, and
+Garamond for reading (Cormorant Garamond for titles, EB Garamond for body). Summaries
+open with a red drop cap, and talking points carry red Roman numerals. The Home and
+sign-in pages are headed by Michelangelo's *Creation of Adam* (public domain, Wikimedia
+Commons): the hands on phones, both figures on wider screens.
+
 ```
 supabase/migrations/   schema, RLS, seed topics: the contract the producer writes against
 supabase/tests/        schema + RLS tests (run on plain Postgres via scripts/test-db.sh)
