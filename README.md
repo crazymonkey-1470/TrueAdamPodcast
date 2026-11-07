@@ -75,9 +75,9 @@ scripts/test-db.sh   # needs Postgres 15+ server binaries; runs as-is on GitHub'
 
 This spins up a throwaway Postgres with a small Supabase stand-in (`auth.users`,
 `auth.uid()`, the `anon`/`authenticated` roles, and Supabase's default grants). It applies
-the migration and checks 100 behaviours: the allow-list, duplicate URLs, topic validation,
+the migration and checks 134 behaviours: the allow-list, duplicate URLs, topic validation,
 anon lockout, host vs. producer edit rights, attribution, highlights, the Grok research
-queue, and the views.
+queue, Grok's memory (dedupe, ranked recall, revisions, privacy), and the views.
 
 ## Site map
 
