@@ -8,8 +8,10 @@ const rank = (i: ItemCard) => (i.item_type === 'fun_fact' ? 1 : i.item_type === 
 
 /** One page to record from: opening quote, the items in running order, closing quote. Prints cleanly. */
 export default function ShowSheet({ id }: { id: string }) {
-  const { episodes } = useApp();
+  const { episodes, reloadEpisodes } = useApp();
   const ep = episodes.find((e) => e.id === id);
+  // Recording from this page: always show the latest quote and title, not what was loaded at sign-in.
+  useEffect(() => reloadEpisodes(), [id, reloadEpisodes]);
   const items = useLoad<ItemCard[]>(() => supabase.from('item_cards').select('*').contains('episode_ids', [id]), [id]);
   const links = useLoad<{ item_id: string; position: number | null; created_at: string }[]>(
     () => supabase.from('item_episodes').select('item_id, position, created_at').eq('episode_id', id),

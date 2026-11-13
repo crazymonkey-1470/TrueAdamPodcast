@@ -82,6 +82,7 @@ export function parseGrokReply(text: string): unknown {
 
 /** Paste Grok's reply; its picks, answers, memories and quote are checked and saved. */
 export function ApplyGrokReply({ episodeId, onApplied, placeholder }: { episodeId?: string; onApplied?: () => void; placeholder?: string }) {
+  const { reloadEpisodes } = useApp();
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
@@ -102,6 +103,7 @@ export function ApplyGrokReply({ episodeId, onApplied, placeholder }: { episodeI
     if (error) return setErr(errorText(error));
     setReport(data as GrokApplyReport);
     if ((data as GrokApplyReport).failed === 0) setText('');
+    reloadEpisodes(); // the reply can change an episode's quote, items or show notes
     onApplied?.();
   }
 
